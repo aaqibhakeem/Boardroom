@@ -1,0 +1,1 @@
+A College Magagement Platform
