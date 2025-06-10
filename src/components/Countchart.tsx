@@ -1,30 +1,41 @@
 "use client";
+
 import Image from "next/image";
 import {
   RadialBarChart,
   RadialBar,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const Countchart = ({ boys, girls }: { boys: number; girls: number }) => {
+  const { theme, systemTheme } = useTheme();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setIsDark(currentTheme === "dark");
+  }, [theme, systemTheme]);
+
   const data = [
     {
       name: "Total",
-      count: boys+girls,
-      fill: "white",
+      count: boys + girls,
+      fill: isDark ? "#1F2937" : "white",
     },
     {
       name: "Girls",
       count: girls,
-      fill: "#FAE27C",
+      fill: isDark ? "#FFD717" : "#FAE27C",
     },
     {
       name: "Boys",
       count: boys,
-      fill: "#C3EBFA",
+      fill: isDark ? "#0D63A5" : "#C3EBFA",
     },
   ];
+
   return (
     <div className="relative w-full h-[75%]">
       <ResponsiveContainer>
@@ -36,7 +47,7 @@ const Countchart = ({ boys, girls }: { boys: number; girls: number }) => {
           barSize={32}
           data={data}
         >
-          <RadialBar background dataKey="count" />
+          <RadialBar background={{ fill: isDark ? "#374151" : "#E5E7EB" }} dataKey="count"/>
         </RadialBarChart>
       </ResponsiveContainer>
       <Image
@@ -50,4 +61,4 @@ const Countchart = ({ boys, girls }: { boys: number; girls: number }) => {
   );
 };
 
-export default Countchart
+export default Countchart;

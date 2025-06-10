@@ -26,7 +26,7 @@ const Bigcalendarcontainer = async ({
   const schedule = adjustScheduleToCurrentWeek(data);
 
   return (
-    <div className="">
+    <div className="mt-3">
       <Bigcalendar data={schedule} />
     </div>
   );
