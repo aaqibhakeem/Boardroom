@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,19 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          {children} <ToastContainer position="bottom-right" theme="dark" />
-        </body>
-      </html>
+        <html lang="en" suppressHydrationWarning={true}>
+          <body className={inter.className}>
+            <ThemeProvider 
+              attribute="class" 
+              defaultTheme="light"
+              enableSystem={false}
+              disableTransitionOnChange
+            >
+              {children} 
+              <ToastContainer position="bottom-right" theme="dark" />
+            </ThemeProvider>
+          </body>
+        </html>
     </ClerkProvider>
   );
 }

@@ -106,3 +106,10 @@
     color: gray !important;
     margin-bottom: 5px;
   }
+
+.menu-icon {
+  min-width: 20px;
+  min-height: 20px;
+  width: 20px;
+  flex-shrink: 0;
+}
