@@ -6,10 +6,12 @@ import Studentattendancecard from "@/components/Studentattendancecard";
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { Class, Student } from "@prisma/client";
+import Avvvatars from "avvvatars-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import {Phone, Droplet, CalendarFold, Mail} from "lucide-react";
 
 const Singlestudentpage = async ({
   params,
@@ -35,47 +37,50 @@ const Singlestudentpage = async ({
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       <div className="w-full xl:w-2/3">
         <div className="flex flex-col lg:flex-row gap-4">
-            <div className="bg-sky dark:bg-slate-800 py-6 px-4 rounded-md flex-1 flex gap-4">
-              <div className="w-1/3 flex items-center justify-center">
-                <Image
-                  src={student.img || "/noAvatar.png"}
-                  alt=""
-                  width={144}
-                  height={144}
-                  className="w-36 h-36 rounded-full object-cover"
-                />
-              </div>
-              <div className="w-2/3 flex flex-col justify-center gap-4">
-                <div className="flex items-center gap-4">
-                  <h1 className="text-2xl font-semibold dark:text-white">
-                    {student.name} {student.surname}
-                  </h1>
-                  {role === "admin" && (
-                    <Formcontainer table="student" type="update" data={student} />
-                  )}
+            <div className="bg-sky dark:bg-slate-800 py-6 px-4 rounded-md flex-1 flex flex-col gap-4">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="bg-purple text-black dark:bg-[#FFD717] dark:text-black font-semibold grid place-items-center rounded-full h-[80px] w-[80px]">
+                    <Avvvatars style="character" value={student.name} size={70} />
+                  </div>
                 </div>
-                <p className="text-sm text-gray-500 dark:text-gray-300">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                </p>
-                <div className="flex items-center justify-between xl:justify-between gap-2 flex-wrap text-xs font-medium">
-                  <div className="w-full md:w-1/3 lg:w-full xl:w-1/2 flex items-center gap-2">
-                    <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWRyb3BsZXQtaWNvbiBsdWNpZGUtZHJvcGxldCI+PHBhdGggZD0iTTEyIDIyYTcgNyAwIDAgMCA3LTdjMC0yLTEtMy45LTMtNS41cy0zLjUtNC00LTYuNWMtLjUgMi41LTIgNC45LTQgNi41QzYgMTEuMSA1IDEzIDUgMTVhNyA3IDAgMCAwIDcgN3oiLz48L3N2Zz4=" alt="" width={14} height={14} className="dark:invert" />
+
+                <div className="flex-1">
+                  <div className="flex items-center gap-4 mb-2">
+                    <h1 className="text-2xl font-semibold dark:text-white">
+                      {student.name} {student.surname}
+                    </h1>
+                    {role === "admin" && (
+                      <Formcontainer table="student" type="update" data={student} />
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-300">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap justify-between text-xs font-medium">
+                <div className="w-full md:w-1/2 flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Droplet width={14} height={14} className="dark:text-white" />
                     <span className="dark:text-gray-200">{student.bloodType}</span>
                   </div>
-                  <div className="w-full md:w-1/3 lg:w-full xl:w-1/2 flex items-center gap-2">
-                    <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNhbGVuZGFyLWZvbGQtaWNvbiBsdWNpZGUtY2FsZW5kYXItZm9sZCI+PHBhdGggZD0iTTggMnY0Ii8+PHBhdGggZD0iTTE2IDJ2NCIvPjxwYXRoIGQ9Ik0yMSAxN1Y2YTIgMiAwIDAgMC0yLTJINWEyIDIgMCAwIDAtMiAydjE0YTIgMiAwIDAgMCAyIDJoMTFaIi8+PHBhdGggZD0iTTMgMTBoMTgiLz48cGF0aCBkPSJNMTUgMjJ2LTRhMiAyIDAgMCAxIDItMmg0Ii8+PC9zdmc+" alt="" width={14} height={14} className="dark:invert"/>
+                  <div className="flex items-center gap-2">
+                    <CalendarFold width={14} height={14} className="dark:text-white"/>
                     <span className="dark:text-gray-200">
                       {new Intl.DateTimeFormat("en-GB").format(student.birthday)}
                     </span>
                   </div>
-                  <div className="w-full md:w-1/3 lg:w-full xl:w-1/2 flex items-center gap-2">
-                    <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1haWwtaWNvbiBsdWNpZGUtbWFpbCI+PHBhdGggZD0ibTIyIDctOC45OTEgNS43MjdhMiAyIDAgMCAxLTIuMDA5IDBMMiA3Ii8+PHJlY3QgeD0iMiIgeT0iNCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjE2IiByeD0iMiIvPjwvc3ZnPg==" alt="" width={14} height={14} className="dark:invert"/>
-                    <span className="dark:text-gray-200 truncate">
-                      {student.email || "-"}
-                    </span>
+                </div>
+
+                <div className="w-full md:w-1/2 flex flex-col gap-2 overflow-hide">
+                  <div className="flex items-center gap-2">
+                    <Mail width={14} height={14} className="dark:text-white"/>
+                    <span className="dark:text-gray-200">{student.email?.slice(0,-9) + '...' || "-"}</span>
                   </div>
-                  <div className="w-full md:w-1/3 lg:w-full xl:w-1/2 flex items-center gap-2">
-                    <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBob25lLWljb24gbHVjaWRlLXBob25lIj48cGF0aCBkPSJNMTMuODMyIDE2LjU2OGExIDEgMCAwIDAgMS4yMTMtLjMwM2wuMzU1LS40NjVBMiAyIDAgMCAxIDE3IDE1aDNhMiAyIDAgMCAxIDIgMnYzYTIgMiAwIDAgMS0yIDJBMTggMTggMCAwIDEgMiA0YTIgMiAwIDAgMSAyLTJoM2EyIDIgMCAwIDEgMiAydjNhMiAyIDAgMCAxLS44IDEuNmwtLjQ2OC4zNTFhMSAxIDAgMCAwLS4yOTIgMS4yMzMgMTQgMTQgMCAwIDAgNi4zOTIgNi4zODQiLz48L3N2Zz4=" alt="" width={14} height={14} className="dark:invert"/>
+                  <div className="flex items-center gap-2">
+                    <Phone width={14} height={14} className="dark:text-white"/>
                     <span className="dark:text-gray-200">{student.phone || "-"}</span>
                   </div>
                 </div>
@@ -139,8 +144,8 @@ const Singlestudentpage = async ({
             <Link className="p-3 rounded-md bg-skyLight dark:bg-[#180161] dark:text-[#FFD717]" href={`/list/lessons?classId=${student.class.id}`}>
               Student&apos;s Lessons
             </Link>
-            <Link className="p-3 rounded-md bg-purpleLight dark:bg-[#3A1078] dark:text-[#CB9DF0]" href={`/list/teachers?classId=${student.class.id}`}>
-              Student&apos;s Teachers
+            <Link className="p-3 rounded-md bg-purpleLight dark:bg-[#3A1078] dark:text-[#CB9DF0]" href={`/list/students?classId=${student.class.id}`}>
+              Student&apos;s students
             </Link>
             <Link className="p-3 rounded-md bg-pink-50 dark:bg-[#3A1078] dark:text-[#CB9DF0]" href={`/list/exams?classId=${student.class.id}`}>
               Student&apos;s Exams
