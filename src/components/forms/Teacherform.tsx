@@ -196,7 +196,7 @@ const Teacherform = ({
                 className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer"
                 onClick={() => open()}
               >
-                <Image src="/upload.png" alt="" width={28} height={28} />
+                <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNsb3VkLXVwbG9hZC1pY29uIGx1Y2lkZS1jbG91ZC11cGxvYWQiPjxwYXRoIGQ9Ik0xMiAxM3Y4Ii8+PHBhdGggZD0iTTQgMTQuODk5QTcgNyAwIDEgMSAxNS43MSA4aDEuNzlhNC41IDQuNSAwIDAgMSAyLjUgOC4yNDIiLz48cGF0aCBkPSJtOCAxNyA0LTQgNCA0Ii8+PC9zdmc+" alt="" width={28} height={28} />
                 <span>Upload a photo</span>
               </div>
             );

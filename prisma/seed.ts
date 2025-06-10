@@ -2,7 +2,6 @@ import { Day, PrismaClient, UserSex } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // ADMIN
   await prisma.admin.create({
     data: {
       id: "admin1",
@@ -16,7 +15,6 @@ async function main() {
     },
   });
 
-  // GRADE
   for (let i = 1; i <= 6; i++) {
     await prisma.grade.create({
       data: {
@@ -25,7 +23,6 @@ async function main() {
     });
   }
 
-  // CLASS
   for (let i = 1; i <= 6; i++) {
     await prisma.class.create({
       data: {
@@ -36,7 +33,6 @@ async function main() {
     });
   }
 
-  // SUBJECT
   const subjectData = [
     { name: "Mathematics" },
     { name: "Science" },
@@ -54,11 +50,10 @@ async function main() {
     await prisma.subject.create({ data: subject });
   }
 
-  // TEACHER
   for (let i = 1; i <= 15; i++) {
     await prisma.teacher.create({
       data: {
-        id: `teacher${i}`, // Unique ID for the teacher
+        id: `teacher${i}`,
         username: `teacher${i}`,
         name: `TName${i}`,
         surname: `TSurname${i}`,
@@ -74,7 +69,6 @@ async function main() {
     });
   }
 
-  // LESSON
   for (let i = 1; i <= 30; i++) {
     await prisma.lesson.create({
       data: {
@@ -93,7 +87,6 @@ async function main() {
     });
   }
 
-  // PARENT
   for (let i = 1; i <= 25; i++) {
     await prisma.parent.create({
       data: {
@@ -108,7 +101,6 @@ async function main() {
     });
   }
 
-  // STUDENT
   for (let i = 1; i <= 50; i++) {
     await prisma.student.create({
       data: {
@@ -129,7 +121,6 @@ async function main() {
     });
   }
 
-  // EXAM
   for (let i = 1; i <= 10; i++) {
     await prisma.exam.create({
       data: {
@@ -141,7 +132,6 @@ async function main() {
     });
   }
 
-  // ASSIGNMENT
   for (let i = 1; i <= 10; i++) {
     await prisma.assignment.create({
       data: {
@@ -153,7 +143,6 @@ async function main() {
     });
   }
 
-  // RESULT
   for (let i = 1; i <= 10; i++) {
     await prisma.result.create({
       data: {
@@ -164,7 +153,6 @@ async function main() {
     });
   }
 
-  // ATTENDANCE
   for (let i = 1; i <= 10; i++) {
     await prisma.attendance.create({
       data: {
@@ -176,7 +164,6 @@ async function main() {
     });
   }
 
-  // EVENT
   for (let i = 1; i <= 5; i++) {
     await prisma.event.create({
       data: {
@@ -189,7 +176,6 @@ async function main() {
     });
   }
 
-  // ANNOUNCEMENT
   for (let i = 1; i <= 5; i++) {
     await prisma.announcement.create({
       data: {

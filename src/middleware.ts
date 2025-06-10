@@ -1,7 +1,6 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
 export default clerkMiddleware(async (auth, req) => {
-  console.log('MIDDLEWARE IS RUNNING!');
   console.log('Path:', req.nextUrl.pathname);
 });
 

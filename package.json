@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@clerk/elements": "^0.23.31",
-    "@clerk/nextjs": "^6.20.2",
+    "@clerk/nextjs": "^6.21.0",
     "@hookform/resolvers": "^5.0.1",
-    "@prisma/client": "^6.8.2",
+    "@prisma/client": "^6.9.0",
     "@types/react-big-calendar": "^1.16.2",
     "lucide": "^0.511.0",
     "lucide-react": "^0.511.0",
@@ -25,7 +25,6 @@
     "react-dom": "^18",
     "react-toastify": "^11.0.5",
     "recharts": "^2.15.3",
-    "ts-node": "^10.9.2",
     "zod": "^3.25.46"
   },
   "devDependencies": {
@@ -35,8 +34,9 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",
-    "prisma": "^6.8.2",
+    "prisma": "^6.9.0",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   },
   "prisma": {

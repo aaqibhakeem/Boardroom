@@ -9,7 +9,12 @@ import {
   TeacherSchema,
 } from "./formValidationSchemas";
 import prisma from "./prisma";
-import { clerkClient } from "@clerk/nextjs/server";
+import { createClerkClient } from "@clerk/nextjs/server";
+
+// Initialize the Clerk client
+const clerkClient = createClerkClient({
+  secretKey: process.env.CLERK_SECRET_KEY,
+});
 
 type CurrentState = { success: boolean; error: boolean };
 
@@ -141,7 +146,7 @@ export const createTeacher = async (
       password: data.password,
       firstName: data.name,
       lastName: data.surname,
-      publicMetadata:{role:"teacher"}
+      publicMetadata: { role: "teacher" }
     });
 
     await prisma.teacher.create({
@@ -258,7 +263,7 @@ export const createStudent = async (
       password: data.password,
       firstName: data.name,
       lastName: data.surname,
-      publicMetadata:{role:"student"}
+      publicMetadata: { role: "student" }
     });
 
     await prisma.student.create({
@@ -355,10 +360,7 @@ export const createExam = async (
   currentState: CurrentState,
   data: ExamSchema
 ) => {
-
   try {
-
-
     await prisma.exam.create({
       data: {
         title: data.title,
@@ -379,10 +381,7 @@ export const updateExam = async (
   currentState: CurrentState,
   data: ExamSchema
 ) => {
-
   try {
-
-
     await prisma.exam.update({
       where: {
         id: data.id,
@@ -407,7 +406,6 @@ export const deleteExam = async (
   data: FormData
 ) => {
   const id = data.get("id") as string;
-
 
   try {
     await prisma.exam.delete({

@@ -5,11 +5,13 @@ import EventCalendarContainer from "@/components/Eventcalendarcontainer";
 import FinanceChart from "@/components/Financechart";
 import UserCard from "@/components/Usercard";
 
-const Adminpage = ({
+const Adminpage = async ({
   searchParams,
 }: {
-  searchParams: { [keys: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
+  const resolvedSearchParams = await searchParams;
+
   return (
     <div className="p-4 flex gap-4 flex-col md:flex-row">
       <div className="w-full lg:w-2/3 flex flex-col gap-8">
@@ -32,11 +34,11 @@ const Adminpage = ({
         </div>
       </div>
       <div className="w-full lg:w-1/3 flex flex-col gap-8">
-        <EventCalendarContainer searchParams={searchParams}/>
+        <EventCalendarContainer searchParams={resolvedSearchParams} />
         <Announcements />
       </div>
     </div>
   );
 };
 
-export default Adminpage
+export default Adminpage;
