@@ -7,19 +7,19 @@ const Eventcalendarcontainer = async ({
 }: {
   searchParams: { [keys: string]: string | undefined };
 }) => {
-  const { date } = await searchParams;
+  const { iniDate } = await searchParams;
   return (
-    <div className="bg-white p-4 rounded-md">
+    <div className="bg-white dark:bg-gray-800 p-4 rounded-md">
       <Eventcalendar />
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold my-4">Events</h1>
+        <h1 className="text-xl font-semibold my-4 text-gray-900 dark:text-white">Events</h1>
         <Image src="/moreDark.png" alt="" width={20} height={20} />
       </div>
       <div className="flex flex-col gap-4">
-        <Eventlist dateParam={date} />
+        <Eventlist dateParam={iniDate} />
       </div>
     </div>
   );
 };
 
-export default Eventcalendarcontainer
+export default Eventcalendarcontainer;

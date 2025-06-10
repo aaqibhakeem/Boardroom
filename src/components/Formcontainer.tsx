@@ -88,4 +88,4 @@ const Formcontainer = async ({ table, type, data, id }: FormcontainerProps) => {
   );
 };
 
-export default Formcontainer
+export default Formcontainer;
