@@ -1,16 +1,39 @@
 import prisma from "@/lib/prisma";
 
 const Eventlist = async ({ dateParam }: { dateParam: string | undefined }) => {
-  const date = dateParam ? new Date(dateParam) : new Date();
+  let data = [];
+  
+  if (dateParam) {
+    // Parse the date string (YYYY-MM-DD format)
+    const [year, month, day] = dateParam.split('-').map(Number);
+    
+    // Create start and end of day in local timezone
+    const startOfDay = new Date(year, month - 1, day, 0, 0, 0, 0);
+    const endOfDay = new Date(year, month - 1, day, 23, 59, 59, 999);
 
-  const data = await prisma.event.findMany({
-    where: {
-      startTime: {
-        gte: new Date(date.setHours(0, 0, 0, 0)),
-        lte: new Date(date.setHours(23, 59, 59, 999)),
+    data = await prisma.event.findMany({
+      where: {
+        startTime: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
       },
-    },
-  });
+    });
+  } else {
+    // Show today's events by default
+    const today = new Date();
+    const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0);
+    const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999);
+
+    data = await prisma.event.findMany({
+      where: {
+        startTime: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
+      },
+    });
+  }
 
   return data.map((event) => (
     <div

@@ -19,7 +19,12 @@ const Eventcalendar = () => {
 
   useEffect(() => {
     if (value instanceof Date) {
-      router.push(`?date=${value.toISOString()}`);
+      // Use local date string to avoid timezone conversion
+      const year = value.getFullYear();
+      const month = String(value.getMonth() + 1).padStart(2, '0');
+      const day = String(value.getDate()).padStart(2, '0');
+      const localDateString = `${year}-${month}-${day}`;
+      router.push(`?date=${localDateString}`);
     }
   }, [value, router]);
 
@@ -33,14 +38,18 @@ const Eventcalendar = () => {
         :root {
           --yellowLight: #FEF3C7;
           --skyLight: #BAE6FD;
+          --purpleLight: #CFCEFF;
         }
         
-        /* Remove dotted underline from day names */
+        :not(.dark) .react-calendar__tile--now {
+          background-color: #CFCEFF !important;
+          color: #6366f1 !important;
+        }
+
         .react-calendar__month-view__weekdays__weekday abbr {
           text-decoration: none !important;
         }
 
-        /* Force dark mode styles */
         .dark .react-calendar {
           background-color: rgb(15 23 42) !important;
           color: rgb(226 232 240) !important;
@@ -75,6 +84,10 @@ const Eventcalendar = () => {
           background-color: rgba(255, 215, 23, 0.2) !important;
         }
 
+        :not(.dark) .react-calendar__tile:hover {
+          background-color: rgba(255, 215, 23, 0.2) !important;
+        }
+
         .dark .react-calendar__tile--now {
           background-color: rgba(255, 215, 23, 0.3) !important;
           color: rgb(255, 215, 23) !important;
@@ -88,9 +101,42 @@ const Eventcalendar = () => {
         .dark .react-calendar__tile--neighboringMonth {
           color: rgb(100 116 139) !important;
         }
+
+        :not(.dark) .react-calendar__navigation {
+          background-color: white !important;
+          background: var(--purpleLight) !important;
+        }
+
+        :not(.dark) .react-calendar__navigation__label,
+        :not(.dark) .react-calendar__navigation__arrow,
+        :not(.dark) .react-calendar__navigation__prev-button,
+        :not(.dark) .react-calendar__navigation__next-button {
+          background-color: white !important;
+          background: var(--purpleLight) !important;
+        }
+
+        .dark .react-calendar {
+          background-color: rgb(15 23 42) !important;
+          color: rgb(226 232 240) !important;
+          border: none !important;
+        }
+
+        .dark .react-calendar__navigation {
+          background-color: rgb(15 23 42) !important;
+          background: rgb(15 23 42) !important;
+          border-bottom: none !important;
+        }
+
+        .dark .react-calendar__navigation__label,
+        .dark .react-calendar__navigation__arrow,
+        .dark .react-calendar__navigation__prev-button,
+        .dark .react-calendar__navigation__next-button {
+          background-color: rgb(15 23 42) !important;
+          background: rgb(15 23 42) !important;
+        }
       `}</style>
       
-      <div className="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-lg">
+      <div className="bg-white dark:bg-slate-900 rounded-xl overflow-hidden border-2 border-[#CFCEFF] dark:border-transparent">
         <Calendar 
           onChange={onChange} 
           value={value}

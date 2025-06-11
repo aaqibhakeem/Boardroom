@@ -15,10 +15,10 @@ const Eventlistpage = async ({
 }: {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
-
   const { userId, sessionClaims } = await auth();
   const role = (sessionClaims?.metadata as { role?: string })?.role;
-  const currentUserId = userId;
+  // currentUserId is still useful for admin actions if you keep them
+  const currentUserId = userId; 
 
   const columns = [
     {
@@ -44,7 +44,7 @@ const Eventlistpage = async ({
       accessor: "endTime",
       className: "hidden md:table-cell",
     },
-    ...(role === "admin"
+    ...(role === "admin" // This condition still allows admin-specific columns
       ? [
           {
             header: "Actions",
@@ -62,6 +62,7 @@ const Eventlistpage = async ({
       <td className="flex items-center gap-4 p-4">{item.title}</td>
       <td>{item.class?.name || "-"}</td>
       <td className="hidden md:table-cell">
+        {/* Use item.startTime directly for formatting date and time components separately */}
         {new Intl.DateTimeFormat("en-US").format(item.startTime)}
       </td>
       <td className="hidden md:table-cell">
@@ -80,7 +81,7 @@ const Eventlistpage = async ({
       </td>
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" && (
+          {role === "admin" && ( // This condition still allows admin-specific actions
             <>
               <Formcontainer table="event" type="update" data={item} />
               <Formcontainer table="event" type="delete" id={item.id} />
@@ -91,44 +92,28 @@ const Eventlistpage = async ({
     </tr>
   );
 
-  const { page, ...queryParams } = await searchParams;
+  const { page, search } = await searchParams; // Destructure directly
 
   const p = page ? parseInt(page) : 1;
 
-
+  // --- MODIFIED PART START ---
   const query: Prisma.EventWhereInput = {};
 
-  if (queryParams) {
-    for (const [key, value] of Object.entries(queryParams)) {
-      if (value !== undefined) {
-        switch (key) {
-          case "search":
-            query.title = { contains: value, mode: "insensitive" };
-            break;
-          default:
-            break;
-        }
-      }
-    }
+  // Apply search filter only if a search term is present
+  if (search) {
+    query.title = { contains: search, mode: "insensitive" };
   }
 
-
-  const roleConditions = {
-    teacher: { lessons: { some: { teacherId: currentUserId! } } },
-    student: { students: { some: { id: currentUserId! } } },
-    parent: { students: { some: { parentId: currentUserId! } } },
-  };
-
-  query.OR = [
-    { classId: null },
-    {
-      class: roleConditions[role as keyof typeof roleConditions] || {},
-    },
-  ];
+  // Remove role-based filtering to show all events.
+  // The `auth()` and `role` variables are still available for UI conditional rendering (e.g., admin actions).
+  // If you later want to re-introduce a simpler role-based filter (e.g., show only public events
+  // to non-admins), you would add that logic here, but it would be simpler than before.
+  // For now, by omitting the `query.OR` based on roles, all events are fetched.
+  // --- MODIFIED PART END ---
 
   const [data, count] = await prisma.$transaction([
     prisma.event.findMany({
-      where: query,
+      where: query, // Now `query` only contains the search filter (if any)
       include: {
         class: true,
       },
@@ -145,8 +130,8 @@ const Eventlistpage = async ({
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <Tablesearch />
           <div className="flex items-center gap-4 self-end">
-          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow dark:bg-yellow-600">
-              <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZ1bm5lbC1pY29uIGx1Y2lkZS1mdW5uZWwiPjxwYXRoIGQ9Ik0xMCAyMGExIDEgMCAwIDAgLjU1My44OTVsMiAxQTEgMSAwIDAgMCAxNCAyMXYtN2EyIDIgMCAwIDEgLjUxNy0xLjM0MUwyMS43NCA0LjY3QTEgMSAwIDAgMCAyMSAzSDNhMSAxIDAgMCAwLS43NDIgMS42N2w3LjIyNSA3Ljk4OUEyIDIgMCAwIDEgMTAgMTR6Ii8+PC9zdmc+" alt="" width={14} height={14} />
+            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow dark:bg-yellow-600">
+              <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZ1bm5lbC1pY29uIGx1Y2lkZS1mdW5uZWwiPjxwYXRoIGQ9Ik0xMCAyMGExIDEgMCAwIDAgLjU1My44OTVsMiAxQTEgMSAwIDAgMCAxNCAyMXYtN2EyIDIgMCAwIDEgLjUxNy0xLjM0MUwyMS43NCA0LjY3QTEgMSAwIDAgMCAyMSAzSDNhMSAxIDAgMCAwLS43NDIgMS42N2w3LjIyNSA3LjkwOUEyIDIgMCAwIDEgMTAgMTR6Ii8+PC9zdmc+" alt="" width={14} height={14} />
             </button>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow dark:bg-yellow-600">
               <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LWRvd24td2lkZS1uYXJyb3ctaWNvbiBsdWNpZGUtYXJyb3ctZG93bi13aWRlLW5hcnJvdyI+PHBhdGggZD0ibTMgMTYgNCA0IDQtNCIvPjxwYXRoIGQ9Ik03IDIwVjQiLz48cGF0aCBkPSJNMTEgNGgxMCIvPjxwYXRoIGQ9Ik0xMSA4aDciLz48cGF0aCBkPSJNMTEgMTJoNCIvPjwvc3ZnPg==" alt="" width={14} height={14} />
@@ -161,4 +146,4 @@ const Eventlistpage = async ({
   );
 };
 
-export default Eventlistpage
+export default Eventlistpage;
