@@ -37,94 +37,117 @@ const Singlestudentpage = async ({
     <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
       <div className="w-full xl:w-2/3">
         <div className="flex flex-col lg:flex-row gap-4">
-            <div className="bg-sky dark:bg-slate-800 py-6 px-4 rounded-md flex-1 flex flex-col gap-4">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="bg-purple text-black dark:bg-[#FFD717] dark:text-black font-semibold grid place-items-center rounded-full h-[80px] w-[80px]">
-                    <Avvvatars style="character" value={student.name} size={70} />
-                  </div>
-                </div>
-
-                <div className="flex-1">
-                  <div className="flex items-center gap-4 mb-2">
-                    <h1 className="text-2xl font-semibold dark:text-white">
-                      {student.name} {student.surname}
-                    </h1>
-                    {role === "admin" && (
-                      <Formcontainer table="student" type="update" data={student} />
-                    )}
-                  </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-300">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  </p>
+          <div className="bg-sky dark:bg-slate-800 py-6 px-4 rounded-md flex-1 flex flex-col gap-4">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0">
+                <div className="bg-purple text-black dark:bg-[#FFD717] dark:text-black font-semibold grid place-items-center rounded-full h-[80px] w-[80px]">
+                  <Avvvatars style="character" value={student.name} size={70} />
                 </div>
               </div>
 
-              <div className="flex flex-wrap justify-between text-xs font-medium">
-                <div className="w-full md:w-1/2 flex flex-col gap-2">
-                  <div className="flex items-center gap-2">
-                    <Droplet width={14} height={14} className="dark:text-white" />
-                    <span className="dark:text-gray-200">{student.bloodType}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CalendarFold width={14} height={14} className="dark:text-white"/>
-                    <span className="dark:text-gray-200">
-                      {new Intl.DateTimeFormat("en-GB").format(student.birthday)}
-                    </span>
-                  </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-4 mb-2">
+                  <h1 className="text-2xl font-semibold dark:text-white">
+                    {student.name} {student.surname}
+                  </h1>
+                  {role === "admin" && (
+                    <Formcontainer table="student" type="update" data={student} />
+                  )}
                 </div>
+                <p className="text-[12px] sm:text-sm text-gray-500 dark:text-gray-300">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
 
-                <div className="w-full md:w-1/2 flex flex-col gap-2 overflow-hide">
-                  <div className="flex items-center gap-2">
-                    <Mail width={14} height={14} className="dark:text-white"/>
-                    <span className="dark:text-gray-200">{student.email?.slice(0,-9) + '...' || "-"}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Phone width={14} height={14} className="dark:text-white"/>
-                    <span className="dark:text-gray-200">{student.phone || "-"}</span>
-                  </div>
+            <div className="flex flex-wrap justify-between text-xs font-medium">
+              <div className="w-1/2 flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <Droplet width={14} height={14} className="dark:text-white text-slate-600" />
+                  <span className="dark:text-gray-200">{student.bloodType}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CalendarFold width={14} height={14} className="dark:text-white text-slate-600"/>
+                  <span className="dark:text-gray-200">
+                    {new Intl.DateTimeFormat("en-GB").format(student.birthday)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="w-1/2 flex flex-col gap-2 overflow-hide">
+                <div className="flex items-center gap-2">
+                  <Mail width={14} height={14} className="dark:text-white text-slate-600 flex-shrink-0"/>
+                  <span className="dark:text-gray-200 truncate">{student.email?.slice(0,-9) + '...' || "-"}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone width={14} height={14} className="dark:text-white text-slate-600"/>
+                  <span className="dark:text-gray-200">{student.phone || "-"}</span>
                 </div>
               </div>
             </div>
+          </div>
+  
           <div className="flex-1 grid grid-cols-2 gap-4 w-full">
             <div className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex gap-4 items-center">
-              <div className="p-3 bg-blue-50 dark:bg-slate-700 rounded-full">
-                <Image src="/singleAttendance.png" alt="" width={20} height={20} className="w-5 h-5 text-blue-500 dark:text-blue-400" />
+              <div className="p-3 bg-blue-50 dark:bg-slate-700 rounded-full flex-shrink-0">
+                <Image 
+                  src="/singleAttendance.png" 
+                  alt="Attendance" 
+                  width={20} 
+                  height={20} 
+                  className="w-5 sm:w-4 h-5 sm:h-4 object-contain" 
+                />
               </div>
-              <div>
                 <Suspense fallback="Loading...">
                   <Studentattendancecard id={student.id} />
                 </Suspense>
+            </div>
+
+            <div className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex gap-4 items-center">
+              <div className="p-3 bg-purpleLight dark:bg-slate-700 rounded-full flex-shrink-0">
+                <Image 
+                  src="/singleBranch.png" 
+                  alt="Grade" 
+                  width={20} 
+                  height={20} 
+                  className="w-5 sm:w-4 h-5 sm:h-4 object-contain" 
+                />
+              </div>
+              <div className="flex flex-col">
+                <h1 className="text-2xl font-bold dark:text-white truncate">{student.class.name.charAt(0)}th</h1>
+                <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Grade</span>
               </div>
             </div>
 
             <div className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex gap-4 items-center">
-              <div className="p-3 bg-purple-50 dark:bg-slate-700 rounded-full">
-                <Image src="/singleBranch.png" alt="" width={20} height={20} className="w-5 h-5 text-purple-500 dark:text-purple-400" />
+              <div className="p-3 bg-blue-50 dark:bg-slate-700 rounded-full flex-shrink-0">
+                <Image 
+                  src="/singleLesson.png" 
+                  alt="Lessons" 
+                  width={20} 
+                  height={20} 
+                  className="w-5 sm:w-4 h-5 sm:h-4 object-contain" 
+                />
               </div>
               <div className="flex flex-col">
-                <h1 className="text-2xl font-bold dark:text-white">{student.class.name.charAt(0)}th</h1>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Grade</span>
+                <h1 className="text-2xl font-bold dark:text-white truncate">{student.class._count.lessons}</h1>
+                <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Lessons</span>
               </div>
             </div>
 
             <div className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex gap-4 items-center">
-              <div className="p-3 bg-blue-50 dark:bg-slate-700 rounded-full">
-                <Image src="/singleLesson.png" alt="" width={20} height={20} className="w-5 h-5 text-blue-500 dark:text-blue-400" />
+              <div className="p-3 bg-green-50 dark:bg-slate-700 rounded-full flex-shrink-0">
+                <Image 
+                  src="/singleClass.png" 
+                  alt="Class" 
+                  width={20} 
+                  height={20} 
+                  className="w-5 sm:w-4 h-5 sm:h-4 object-contain" 
+                />
               </div>
               <div className="flex flex-col">
-                <h1 className="text-2xl font-bold dark:text-white">{student.class._count.lessons}</h1>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Lessons</span>
-              </div>
-            </div>
-
-            <div className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex gap-4 items-center">
-              <div className="p-3 bg-green-50 dark:bg-slate-700 rounded-full">
-                <Image src="/singleClass.png" alt="" width={20} height={20} className="w-5 h-5 text-green-500 dark:text-green-400" />
-              </div>
-              <div className="flex flex-col">
-                <h1 className="text-2xl font-bold dark:text-white">{student.class.name}</h1>
-                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Class</span>
+                <h1 className="text-2xl font-bold dark:text-white truncate">{student.class.name}</h1>
+                <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Class</span>
               </div>
             </div>
           </div>
@@ -136,7 +159,6 @@ const Singlestudentpage = async ({
         </div>
       </div>
 
-      {/* Right sidebar */}
       <div className="w-full xl:w-1/3 flex flex-col gap-4">
         <div className="bg-white dark:bg-slate-800 p-4 rounded-md">
           <h1 className="text-xl font-semibold dark:text-white">Shortcuts</h1>
@@ -144,22 +166,24 @@ const Singlestudentpage = async ({
             <Link className="p-3 rounded-md bg-skyLight dark:bg-[#180161] dark:text-[#FFD717]" href={`/list/lessons?classId=${student.class.id}`}>
               Student&apos;s Lessons
             </Link>
-            <Link className="p-3 rounded-md bg-purpleLight dark:bg-[#3A1078] dark:text-[#CB9DF0]" href={`/list/students?classId=${student.class.id}`}>
-              Student&apos;s students
-            </Link>
-            <Link className="p-3 rounded-md bg-pink-50 dark:bg-[#3A1078] dark:text-[#CB9DF0]" href={`/list/exams?classId=${student.class.id}`}>
+            <Link className="p-3 rounded-md bg-purpleLight dark:bg-[#3A1078] dark:text-[#CB9DF0]" href={`/list/exams?classId=${student.class.id}`}>
               Student&apos;s Exams
             </Link>
-            <Link className="p-3 rounded-md bg-skyLight dark:bg-[#180161] dark:text-[#FFD717]" href={`/list/assignments?classId=${student.class.id}`}>
+            <Link className="p-3 rounded-md bg-pink-50 dark:bg-[#180161]/80 dark:text-[#FFD717]/80" href={`/list/assignments?classId=${student.class.id}`}>
               Student&apos;s Assignments
             </Link>
-            <Link className="p-3 rounded-md bg-yellowLight dark:bg-[#180161] dark:text-[#FFD717]" href={`/list/results?studentId=${student.id}`}>
+            <Link className="p-3 rounded-md bg-skyLight dark:bg-[#3A1078]/70 dark:text-[#CB9DF0]/70" href={`/list/results?classId=${student.class.id}`}>
               Student&apos;s Results
+            </Link>
+            <Link className="p-3 rounded-md bg-yellowLight dark:bg-[#180161]/60 dark:text-[#FFD717]/60" href={`/list/students?studentId=${student.id}`}>
+              All Students
             </Link>
           </div>
         </div>
         <Performance />
-        <Announcements />
+        <div className="h-[420px]">
+          <Announcements />
+        </div>
       </div>
     </div>
   );
