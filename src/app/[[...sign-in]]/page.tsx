@@ -50,6 +50,7 @@ const LoginPage = () => {
             </Clerk.Label>
             <Clerk.Input
               type="text"
+              value="admin"
               required
               className="p-2 rounded-md ring-1 ring-gray-300 dark:ring-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 outline-none transition-all"
             />
@@ -61,6 +62,7 @@ const LoginPage = () => {
             </Clerk.Label>
             <Clerk.Input
               type="password"
+              value="admin"
               required
               className="p-2 rounded-md ring-1 ring-gray-300 dark:ring-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 outline-none transition-all"
             />
