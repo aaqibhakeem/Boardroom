@@ -1,5 +1,5 @@
 # 🏛 Boardroom – Academic Management Platform  
-🌐 A full-featured, web-based platform for managing educational institutions, built to enhance academic administration and streamline communication. Boardroom brings together personalized dashboards, secure role-based access, and modular tools to support assignment tracking, examination schedules, and institution-wide announcements.  
+🌍 A full-featured, web-based platform for managing educational institutions, built to enhance academic administration and streamline communication. Boardroom brings together personalized dashboards, secure role-based access, and modular tools to support assignment tracking, examination schedules, and institution-wide announcements.  
 ✨Access the [live site](https://boardroomhq.vercel.app) here.  
 
 ---
