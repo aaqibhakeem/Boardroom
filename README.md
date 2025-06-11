@@ -16,8 +16,8 @@
 |           Screenshots           |
 | ------------------------------- |
 | ![Landing](content/nt1.png)     |
-| ![Dashboard](content/nt2.png) |
-| ![Student](content/nt3.png)     |
+| ![Description](content/nt2.png) |
+| ![Reasons](content/nt3.png)     |
 
 ---
 
@@ -30,19 +30,41 @@
 
 ---
 
-## 🚀 Getting Started  
-### 1️⃣ Clone the Repository  
-```sh  
-git clone https://github.com/aaqibhakeem/Boardroom.git  
-cd Boardroom  
+## 🚀 Getting Started
+### 1️⃣ Clone the Repository
+```sh
+git clone https://github.com/aaqibhakeem/Boardroom.git
+cd Boardroom
+```
+
+### 2️⃣ Install Dependencies
+```sh
+npm install
+```
+
+### 3️⃣ Configure Prisma Seed Script
+Add the following to your `package.json` under the `scripts` section:
+```json
+"prisma": {
+  "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+}
+```
+
+### 4️⃣ Install `ts-node`
+Go ahead and install it using:
+
+```sh
+npm install -D ts-node
 ```  
 
-### 2️⃣ Install Dependencies  
-```sh  
-npm install  
+### 5️⃣ Seed the Database
+Make sure your `.env` file is correctly configured, then run:
+
+```sh
+npx prisma db seed
 ```  
 
-### 3️⃣ Run the Development Server  
+### 6️⃣ Run the Development Server  
 ```sh  
 npm run dev  
 ```  
