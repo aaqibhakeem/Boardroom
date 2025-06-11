@@ -25,15 +25,67 @@ const Announcements = async () => {
     // },
   });
 
-  // Function to get alternating colors
+  // Function to get alternating colors for both light and dark modes
   const getAnnouncementStyles = (index: number) => {
-    const isBlue = index % 2 === 0;
+    const colorIndex = index % 3;
+    
+    const lightModeColors = [
+      {
+        background: "bg-skyLight",
+        textColor: "text-gray-900",
+        descriptionColor: "text-gray-600",
+        dateBackground: "bg-white",
+        dateTextColor: "text-gray-600"
+      },
+      {
+        background: "bg-purpleLight", 
+        textColor: "text-gray-900",
+        descriptionColor: "text-gray-600",
+        dateBackground: "bg-white",
+        dateTextColor: "text-gray-600"
+      },
+      {
+        background: "bg-yellowLight",
+        textColor: "text-gray-900", 
+        descriptionColor: "text-gray-600",
+        dateBackground: "bg-white",
+        dateTextColor: "text-gray-600"
+      }
+    ];
+
+    const darkModeColors = [
+      {
+        background: "dark:bg-[#0D63A5]",
+        textColor: "dark:text-white",
+        descriptionColor: "dark:text-gray-200", 
+        dateBackground: "dark:bg-white/20",
+        dateTextColor: "dark:text-white"
+      },
+      {
+        background: "dark:bg-[#FFD717]",
+        textColor: "dark:text-black",
+        descriptionColor: "dark:text-gray-700",
+        dateBackground: "dark:bg-black/10", 
+        dateTextColor: "dark:text-black"
+      },
+      {
+        background: "dark:bg-[#0D63A5]", 
+        textColor: "dark:text-white",
+        descriptionColor: "dark:text-gray-200",
+        dateBackground: "dark:bg-white/20",
+        dateTextColor: "dark:text-white"
+      }
+    ];
+
+    const lightColors = lightModeColors[colorIndex];
+    const darkColors = darkModeColors[colorIndex];
+
     return {
-      background: isBlue ? "bg-[#0D63A5]" : "bg-[#FFD717]",
-      textColor: isBlue ? "text-white" : "text-black",
-      descriptionColor: isBlue ? "text-gray-200" : "text-gray-700",
-      dateBackground: isBlue ? "bg-white/20" : "bg-black/10",
-      dateTextColor: isBlue ? "text-white" : "text-black"
+      background: `${lightColors.background} ${darkColors.background}`,
+      textColor: `${lightColors.textColor} ${darkColors.textColor}`,
+      descriptionColor: `${lightColors.descriptionColor} ${darkColors.descriptionColor}`,
+      dateBackground: `${lightColors.dateBackground} ${darkColors.dateBackground}`,
+      dateTextColor: `${lightColors.dateTextColor} ${darkColors.dateTextColor}`
     };
   };
 
