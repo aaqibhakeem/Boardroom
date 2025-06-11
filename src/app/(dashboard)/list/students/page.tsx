@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import Avvvatars from 'avvvatars-react'
+import {Eye, Funnel, ArrowDownNarrowWide} from "lucide-react";
 
 type StudentList = Student & { class: Class };
 
@@ -61,11 +62,11 @@ const Studentlistpage = async ({
       className="border-b border-gray-200 dark:border-gray-600 even:bg-slate-50 dark:even:bg-gray-700 text-sm hover:bg-purpleLight dark:hover:bg-gray-600 text-gray-900 dark:text-white"
     >
       <td className="flex items-center gap-4 p-4">
-        <div className="bg-purple text-black dark:bg-[#FFD717] dark:text-black font-semibold grid place-items-center rounded-full h-9 w-9">
+        <div className="bg-purple text-gray-500 dark:text-black dark:bg-[#FFD717] font-semibold grid place-items-center rounded-full h-9 w-9">
         <Avvvatars style="character" value={item.name + item.username} size={30} /></div>
         <div className="flex flex-col">
           <h3 className="font-semibold">{item.name}</h3>
-          <p className="text-xs text-gray-500">{item.class.name}</p>
+          <p className="text-xs text-gray-400">{item.class.name}</p>
         </div>
       </td>
       <td className="hidden md:table-cell">{item.username}</td>
@@ -75,9 +76,9 @@ const Studentlistpage = async ({
       <td>
         <div className="flex items-center gap-2">
           <Link href={`/list/students/${item.id}`}>
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-sky">
-              <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWV5ZS1pY29uIGx1Y2lkZS1leWUiPjxwYXRoIGQ9Ik0yLjA2MiAxMi4zNDhhMSAxIDAgMCAxIDAtLjY5NiAxMC43NSAxMC43NSAwIDAgMSAxOS44NzYgMCAxIDEgMCAwIDEgMCAuNjk2IDEwLjc1IDEwLjc1IDAgMCAxLTE5Ljg3NiAwIi8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMyIvPjwvc3ZnPg==" alt="" width={16} height={16} />
-            </button>
+            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-sky dark:bg-[#0ea5e9]">
+              <Eye className="text-gray-500 dark:text-black" size={16} />
+              </button>
           </Link>
           {role === "admin" && (
             <Formcontainer table="student" type="delete" id={item.id} />
@@ -136,11 +137,11 @@ const Studentlistpage = async ({
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <Tablesearch />
           <div className="flex items-center gap-4 self-end">
-          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow dark:bg-yellow-600">
-              <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZ1bm5lbC1pY29uIGx1Y2lkZS1mdW5uZWwiPjxwYXRoIGQ9Ik0xMCAyMGExIDEgMCAwIDAgLjU1My44OTVsMiAxQTEgMSAwIDAgMCAxNCAyMXYtN2EyIDIgMCAwIDEgLjUxNy0xLjM0MUwyMS43NCA0LjY3QTEgMSAwIDAgMCAyMSAzSDNhMSAxIDAgMCAwLS43NDIgMS42N2w3LjIyNSA3Ljk4OUEyIDIgMCAwIDEgMTAgMTR6Ii8+PC9zdmc+" alt="" width={14} height={14} />
+          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow dark:bg-[#FFD717]">
+              <Funnel width={14} height={14} className="text-gray-500 dark:text-black"/>
             </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow dark:bg-yellow-600">
-              <Image src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LWRvd24td2lkZS1uYXJyb3ctaWNvbiBsdWNpZGUtYXJyb3ctZG93bi13aWRlLW5hcnJvdyI+PHBhdGggZD0ibTMgMTYgNCA0IDQtNCIvPjxwYXRoIGQ9Ik03IDIwVjQiLz48cGF0aCBkPSJNMTEgNGgxMCIvPjxwYXRoIGQ9Ik0xMSA4aDciLz48cGF0aCBkPSJNMTEgMTJoNCIvPjwvc3ZnPg==" alt="" width={14} height={14} />
+            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow dark:bg-[#FFD717]">
+              <ArrowDownNarrowWide width={14} height={14} className="text-gray-500 dark:text-black" />
             </button>
             {role === "admin" && (
               <Formcontainer table="student" type="create" />
