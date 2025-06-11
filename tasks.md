@@ -1,12 +1,9 @@
-Imp
-- Announcements Match Color Scheme [Done]
-- Announcement Match Height (Scrollable) [Done]
-- Table Hover Fix [Done]
 - BigCalendar Redesign  [Later]
-- Details Card Layout [Done]
-- Student Stat Cards Fix [Done]
-- Announcements Sidebar Icon [Done]
+- Student Table View Icons Overflow Fix
+- Dark Mode Table Icons Color Addition
+- Hamburger Menu
+- Light/Dark Toggle Animation
+- Scrollbar Theme
 
-Delayed
 - Auth
 - Optimization (Lazy Loading, Pagination, On-Demand Paging)

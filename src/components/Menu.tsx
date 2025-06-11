@@ -5,7 +5,6 @@ import {House, GraduationCap, UsersRound, CircleUserRound, UserRoundPlus, Notebo
 
 const menuItems = [
   {
-    title: "MENU",
     items: [
       {
         icon: <House />,
@@ -91,11 +90,6 @@ const menuItems = [
         href: "/list/announcements",
         visible: ["admin", "teacher", "student", "parent"],
       },
-    ],
-  },
-  {
-    title: "OTHER",
-    items: [
       {
         icon: <CircleUserRound />,
         label: "Profile",
@@ -124,7 +118,7 @@ const Menu = async () => {
   return (
     <div className="mt-4 pr-2 text-sm max-h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-100 dark:scrollbar-thumb-gray-200 scrollbar-track-transparent min-w-[60px] pl-2 hidden sm:block">
       {menuItems.map((i) => (
-        <div className="flex flex-col gap-2" key={i.title}>         
+        <div className="flex flex-col gap-2" key={i.items[0].label}>
           {i.items.map((item) => {
             if (item.visible.includes(role)) {
               return (

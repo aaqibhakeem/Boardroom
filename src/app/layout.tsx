@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
         <html lang="en" suppressHydrationWarning={true}>
-          <body className={inter.className}>
+          <body className={`${inter.className} overflow-x-hidden max-w-full`}>
             <ThemeProvider 
               attribute="class" 
               defaultTheme="light"
