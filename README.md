@@ -15,9 +15,9 @@
 ## 📸 Screenshots  
 |           Screenshots           |
 | ------------------------------- |
-| ![Landing](content/nt1.png)     |
-| ![Description](content/nt2.png) |
-| ![Reasons](content/nt3.png)     |
+| ![Light Dasboard](content/br1.png)     |
+| ![Dark Dashboard](content/br2.png) |
+| ![Teacher Page](content/br3.png)     |
 
 ---
 
